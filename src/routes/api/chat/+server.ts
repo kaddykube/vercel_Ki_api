@@ -10,6 +10,7 @@ const replicate = new Replicate({
 
 export const POST = (async ({ request }) => {
   const { messages } = await request.json();
+  console.log(messages);
 
   const response = await replicate.predictions.create({
     stream: true,
@@ -20,5 +21,6 @@ export const POST = (async ({ request }) => {
   });
 
   const stream = await ReplicateStream(response);
+
   return new StreamingTextResponse(stream);
 }) satisfies RequestHandler;

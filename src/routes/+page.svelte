@@ -1,2 +1,19 @@
-<h1>Chat</h1>
-<div class="px-[20%]">hello user</div>
+<script>
+  import { useChat } from 'ai/svelte'
+ 
+  const { input, handleSubmit, messages } = useChat()
+</script>
+ 
+<div>
+  <ul>
+    {#each $messages as message}
+      <li>{message.role}: {message.content}</li>
+    {/each}
+  </ul>
+  <form on:submit={handleSubmit}>
+    <input bind:value={$input} />
+    <button type="submit">Send</button>
+  </form>
+</div>
+
+

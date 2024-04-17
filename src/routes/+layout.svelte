@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-    <title>Chat test</title>
+    <title>Hello</title>
 </svelte:head>
 
 <slot />

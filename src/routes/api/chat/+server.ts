@@ -1,26 +1,23 @@
+import OpenAI from "openai";
+import { env } from "$env/dynamic/private";
 import type { RequestHandler} from "@sveltejs/kit";
-import { ReplicateStream, StreamingTextResponse } from 'ai';
-import Replicate from 'replicate';
-import { experimental_buildOpenAssistantPrompt } from 'ai/prompts';
-import { REPLICATE_API_TOKEN } from '$env/static/private';
 
-const replicate = new Replicate({
-  auth: REPLICATE_API_TOKEN,
+const openai = new OpenAI({
+  apiKey: env.OPENAI_API_KEY || "",
 });
 
 export const POST = (async ({ request }) => {
   const { messages } = await request.json();
   console.log(messages);
 
-  const response = await replicate.predictions.create({
-    stream: true,
-    version: '7b3212fbaf88310cfef07a061ce94224e82efc8403c26fc67e8f6c065de51f21',
-    input: {
-      prompt: experimental_buildOpenAssistantPrompt(messages),
-    },
+  const image = await openai.images.generate({
+    model: "dall-e-3",
+    prompt: messages[0].content,
+    n: 1,
+    response_format: "url",
+    style: "natural",
   });
 
-  const stream = await ReplicateStream(response);
-
-  return new StreamingTextResponse(stream);
+  const attachment = {data: image};
+  return new Response(JSON.stringify(attachment));;
 }) satisfies RequestHandler;

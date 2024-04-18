@@ -2,7 +2,7 @@
 	import { fade } from 'svelte/transition'
 </script>
 
-<div class="flex flex-col items-center justify-center absolute text-[#663399] bg-[rgb(255 255 255 / .5)] w-full h-full z-60" transition:fade>
+<div class="flex flex-col items-center justify-center absolute text-[#663399] bg-white/50 w-full h-full z-60" transition:fade>
 	<h1>
 		Loading data...
 		<div class="loader"/>

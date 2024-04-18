@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-    <title>Hello</title>
+    <title>Imagegenerator</title>
 </svelte:head>
 
 

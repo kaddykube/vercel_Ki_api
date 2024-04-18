@@ -12,8 +12,9 @@ export const POST = (async ({ request }) => {
 
   const image = await openai.images.generate({
     model: "dall-e-3",
-    prompt: messages[0].content,
+    prompt: messages[0].content + ' als ' + messages[0].style,
     n: 1,
+    size: messages[0].format || '1792x1024',
     response_format: "b64_json",
     style: "natural",
   });

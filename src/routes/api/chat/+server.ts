@@ -8,11 +8,11 @@ const openai = new OpenAI({
 
 export const POST = (async ({ request }) => {
   const { messages } = await request.json();
-  console.log(messages);
+  const promptString = messages[0].content + ( messages[0].style && (' als ' + messages[0].style));
 
   const image = await openai.images.generate({
     model: "dall-e-3",
-    prompt: messages[0].content + ' als ' + messages[0].style,
+    prompt: promptString,
     n: 1,
     size: messages[0].format || '1792x1024',
     response_format: "b64_json",

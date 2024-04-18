@@ -48,7 +48,7 @@
       const data = await response.json();
       console.log(data.data?.data[0]);
       if (data.data?.data[0].b64_json) {
-        generatedImage = "data:image/png;base64," + data.data?.data[0].b64_json;
+        generatedImage = "data:image/png;base64, " + data.data?.data[0].b64_json;
         list = [
           ...list,
           {
@@ -72,7 +72,7 @@
   class="flex flex-col justify-end items-center relative h-[90vh] mt-[5vh] max-w-[600px] ml-[10%] border-white border rounded-2xl bg-gray-50 overflow-hidden"
 >
   <div
-    class="w-full flex-1 flex flex-col items-center justify-center overflow-y-scroll"
+    class="w-full flex-1 flex flex-col items-center overflow-y-auto"
   >
     {#each list as item, key}
       {#if item.base64}
@@ -80,7 +80,7 @@
         <img
           src={item.base64}
           alt="Generated Image"
-          class="w-1/2 border rounded-2xl mt-2"
+          class="w-1/2 border rounded-2xl my-2"
         />
         <!-- button bar -->
         <div class="flex flex-row w-full flex-nowrap justify-start px-20 border-2 rounded-2xl mt-2 items-start">
@@ -88,7 +88,7 @@
             <p>Model:</p>
             <p>dall-e-3</p>
           </div>
-          <div class="flex flex-col ml-10">
+          <div class="flex flex-col mr-10">
             <p>Caption:</p>
             <p>{item.caption}</p>
           </div>

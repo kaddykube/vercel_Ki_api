@@ -7,14 +7,14 @@ const openai = new OpenAI({
 });
 
 export const POST = (async ({ request }) => {
-  const { messages } = await request.json();
-  const promptString = messages[0].content + ( messages[0].style && (' als ' + messages[0].style));
+  const { content, style, format } = await request.json();
+  const promptString = content + ( style && (' als ' + style));
 
   const image = await openai.images.generate({
     model: "dall-e-3",
     prompt: promptString,
     n: 1,
-    size: messages[0].format || '1792x1024',
+    size: format || '1792x1024',
     response_format: "b64_json",
     style: "natural",
   });

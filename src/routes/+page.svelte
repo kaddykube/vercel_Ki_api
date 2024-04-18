@@ -18,10 +18,10 @@
   $: isLoading = false;
 
   function downloadImage(index: number) {
+    /** für linear b filesafer nutzen!!!*/
     const a = document.createElement("a");
     const blob = blob64(list[index].base64);
     var URL = window.URL.createObjectURL(blob);
-    console.log(URL);
     a.href = URL;
     a.download = list[index].prompt + ".png";
     a.click();
@@ -34,14 +34,9 @@
       const response = await fetch("/api/chat", {
         method: "POST",
         body: JSON.stringify({
-          messages: [
-            {
-              role: "user",
               content: prompt,
               style: styleOfImage,
               format: format,
-            },
-          ],
         }),
       });
 

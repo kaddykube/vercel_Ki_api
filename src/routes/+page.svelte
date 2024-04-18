@@ -2,6 +2,8 @@
   import Spinner from "$lib/spinner.svelte";
   import { blob64 } from "../utils/blob64";
   import Radio from "$lib/Radio.svelte";
+  import type { ImagesResponse } from "openai-edge";
+  import OpenAI from "openai";
 
   let format = "1024x1024";
   let styleOfImage = "Comic";
@@ -41,15 +43,20 @@
       });
 
       const data = await response.json();
-      console.log(data.data?.data[0]);
-      if (data.data?.data[0].b64_json) {
-        generatedImage = "data:image/png;base64, " + data.data?.data[0].b64_json;
+
+      const image = data.data as OpenAI.Images.ImagesResponse;
+
+      console.log(image?.data[0]);
+
+      if (image?.data[0].b64_json) {
+
+        generatedImage = "data:image/png;base64, " + image?.data[0].b64_json;
         list = [
           ...list,
           {
             base64: generatedImage,
             prompt: prompt,
-            caption: data.data?.data[0].revised_prompt,
+            caption: image?.data[0].revised_prompt || '',
           },
         ];
       }

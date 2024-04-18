@@ -14,7 +14,7 @@ export const POST = (async ({ request }) => {
     model: "dall-e-3",
     prompt: messages[0].content,
     n: 1,
-    response_format: "url",
+    response_format: "b64_json",
     style: "natural",
   });
 
